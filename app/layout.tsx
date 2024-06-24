@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-googleSansMedium">
+      <body className="bg-background font-googleSansMedium text-white">
         <TanstackProvider>
           <main>{children}</main>
         </TanstackProvider>

@@ -24,17 +24,28 @@ export default withUt({
         googleSansBold: "googleSansBold",
       },
       colors: {
-        border: "hsl(var(--border))",
+        title: "hsl(var(--title))",
+        paragraph: "hsl(var(--paragraph))",
+        border: {
+          DEFAULT: "hsl(var(--border))",
+          hover: "hsl(var(--border-hover))",
+        },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        white: {
+          DEFAULT: "hsl(var(--white))",
+          hover: "hsl(var(--white-hover))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          hover: "hsl(var(--primary-hover))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
+          hover: "hsl(var(--secondary-hover))",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
@@ -51,10 +62,12 @@ export default withUt({
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
+          hover: "hsl(var(--popover-hover))",
           foreground: "hsl(var(--popover-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
+          hover: "hsl(var(--card-hover))",
           foreground: "hsl(var(--card-foreground))",
         },
       },

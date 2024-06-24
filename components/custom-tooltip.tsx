@@ -1,29 +1,40 @@
+"use client"
+
+import { cn } from "@/lib/utils"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import React from "react"
+} from "./ui/tooltip"
 
-interface CustomTooltipType {
+interface CustomTooltipProps {
   children: React.ReactNode
   title: string
-  side?: "top" | "left" | "right" | "bottom"
   className?: string
+  side?: "top" | "bottom" | "left" | "right"
+  align?: "start" | "center" | "end"
 }
 
 const CustomTooltip = ({
   children,
   title,
-  side = "top",
   className,
-}: CustomTooltipType) => {
+  side,
+  align,
+}: CustomTooltipProps) => {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side} className={className}>
+        <TooltipContent
+          side={side}
+          align={align}
+          className={cn(
+            "text-title rounded-lg border-none bg-secondary p-1.5 text-xs leading-none",
+            className,
+          )}
+        >
           {title}
         </TooltipContent>
       </Tooltip>
