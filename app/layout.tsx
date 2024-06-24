@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import TanstackProvider from "@/lib/provider/tanstack-provider"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-googleSansMedium">
-        <main>{children}</main>
+        <TanstackProvider>
+          <main>{children}</main>
+        </TanstackProvider>
       </body>
     </html>
   )

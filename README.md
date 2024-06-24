@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+--green-primary: #31ff6c;
+--green-primary-hover: #2ef066;
+--green-40: #1d9941;
+--green-40-hoever: #1b903d;
+--green-60: #14662b;
+--green-80: #0a3316;
+--blue-primary: #0c6fff;
+--blue-40: #074399;
+--blue-60: #052c66;
+--blue-80: #021633;
+--coral-primary: #ff687f;
+--coral-40: #993e4c;
+--coral-60: #662a33;
+--coral-80: #331519;
+--lilac-primary: #e5cdec;
+--lilac-40: #897b8e;
+--lilac-60: #5c525e;
+--lilac-80: #2e292f;
+--black-primary: #000;
+--black-primary-hover: #191919;
+--black-10: #1a1a1a;
+--black-10-hover: #313131;
+--black-20: #333;
+--black-20-hover: #474747;
+--black-30: #4d4d4d;
+--black-40: #666;
+--black-50: grey;
+--black-60: #c9c5ca;
+--black-70: #f4eff4;
+--white-primary: #fff;
+--white-primary-hover: #f0f0f0;
+--white-divider: hsla(0,0%,100%,.1);
+--white-overlay: rgba(0,0,0,.9);
+--white-model: rgba(0,0,0,.6);
+--white-mark: rgba(0,0,0,.1);
+--white-caption: hsla(0,0%,100%,.6);
+--white-border: hsla(0,0%,100%,.05);
+--white-modal: rgba(0,0,0,.9);
+color-scheme: dark;
