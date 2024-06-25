@@ -115,7 +115,7 @@ const TextEditor = ({ value, setValue, className }: TextEditorProps) => {
       <EditorContent
         editor={editor}
         className={cn(
-          "scrollY prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:hover:underline prose-a:hover:underline-offset-2 prose-pre:bg-input prose-li:text-primary",
+          "scrollY prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:hover:underline prose-a:hover:underline-offset-2 prose-strong:text-white prose-pre:bg-input prose-li:text-primary",
           className,
         )}
         placeholder="description product"
