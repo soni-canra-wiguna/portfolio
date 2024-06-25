@@ -2,7 +2,6 @@
 
 import { type Editor, EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import Text from "@tiptap/extension-text"
 import { Toggle } from "./ui/toggle"
 import {
   Bold,
@@ -19,13 +18,34 @@ import {
   Heading6,
   ImageIcon,
   Link2,
+  UnderlineIcon,
+  Code,
+  SquareTerminal,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Quote,
+  Strikethrough,
+  Highlighter,
 } from "lucide-react"
 import Typography from "@tiptap/extension-typography"
-import Heading from "@tiptap/extension-heading"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import Dropcursor from "@tiptap/extension-dropcursor"
 import Image from "@tiptap/extension-image"
 import Link from "@tiptap/extension-link"
+import { Underline as UnderlineTiptap } from "@tiptap/extension-underline"
+import { TextAlign as TextAlignTiptap } from "@tiptap/extension-text-align"
+import { cn } from "@/lib/utils"
+import Highlight from "@tiptap/extension-highlight"
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight"
+import css from "highlight.js/lib/languages/css"
+import js from "highlight.js/lib/languages/javascript"
+import ts from "highlight.js/lib/languages/typescript"
+import html from "highlight.js/lib/languages/xml"
+import markdown from "highlight.js/lib/languages/markdown"
+import { common, createLowlight } from "lowlight"
+
+// add this theme for code block
+// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 
 interface TextEditorProps {
   value: string
@@ -33,33 +53,59 @@ interface TextEditorProps {
   className?: string
 }
 
+const lowlight = createLowlight(common)
+
+lowlight.register("html", html)
+lowlight.register("css", css)
+lowlight.register("js", js)
+lowlight.register("ts", ts)
+lowlight.register("markdown", markdown)
+
+// lowlight?.common("html", html)
+// lowlight?.common("css", css)
+// lowlight?.common("js", js)
+// lowlight?.common("ts", ts)
+
 const TextEditor = ({ value, setValue, className }: TextEditorProps) => {
   const editor = useEditor({
     content: value,
     editorProps: {
       attributes: {
-        class: "outline-none focus:outline-none prose",
+        class: cn("outline-none focus:outline-none prose"),
       },
     },
     extensions: [
-      Text,
-      StarterKit.configure(),
+      StarterKit.configure({
+        dropcursor: {
+          color: "#31ff6c",
+        },
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6],
+        },
+      }),
       Link.configure({
         openOnClick: false,
         autolink: true,
         // defaultProtocol: "https"
       }),
-      Heading.configure({
-        levels: [1, 2, 3],
-      }),
       Typography,
       Image,
-      Dropcursor.configure({
-        color: "#31ff6c",
+      UnderlineTiptap,
+      TextAlignTiptap.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Highlight.configure({
+        multicolor: true,
+        HTMLAttributes: {
+          class: "text-background",
+        },
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
       }),
     ],
     onUpdate({ editor }) {
-      setValue(editor.getHTML())
+      // setValue(editor.getHTML())
     },
   })
 
@@ -68,8 +114,14 @@ const TextEditor = ({ value, setValue, className }: TextEditorProps) => {
       <MenuBar editor={editor} />
       <EditorContent
         editor={editor}
-        className="scrollY h-[500px] overflow-y-auto rounded-b-2xl border border-input p-2"
+        className={cn(
+          "scrollY prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:hover:underline prose-a:hover:underline-offset-2 prose-pre:bg-input prose-li:text-primary",
+          className,
+        )}
         placeholder="description product"
+        spellCheck="false"
+        autoComplete="off"
+        autoCorrect="off"
       />
     </div>
   )
@@ -109,7 +161,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   }
 
   return (
-    <div className="flex items-center gap-2 rounded-t-2xl border border-input p-2">
+    <div className="flex flex-wrap items-center gap-2 rounded-t-2xl border border-input p-2">
       <Popover>
         <PopoverTrigger asChild>
           <Toggle
@@ -222,13 +274,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       >
         <Italic className="h-4 w-4" />
       </Toggle>
-      {/* <Toggle
-        pressed={editor?.isActive("link")}
-        onPressedChange={() => editor?.chain().focus().toggleLink({}).run()}
-      >
-        <LinkIcon />
-      </Toggle> */}
-
       <Toggle
         className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
         size="sm"
@@ -247,6 +292,102 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         }
       >
         <ListOrdered className="h-4 w-4" />
+      </Toggle>
+      <Toggle
+        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+        size="sm"
+        pressed={editor?.isActive("underline")}
+        onPressedChange={() => editor?.chain().focus().toggleUnderline().run()}
+      >
+        <UnderlineIcon className="h-4 w-4" />
+      </Toggle>
+      <Toggle
+        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+        size="sm"
+        pressed={editor?.isActive("codeBlock")}
+        onPressedChange={() => editor?.chain().focus().toggleCodeBlock().run()}
+      >
+        <SquareTerminal className="h-4 w-4" />
+      </Toggle>
+      {/* text align */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <Toggle
+            className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+            size="sm"
+          >
+            <AlignCenter className="h-4 w-4" />
+          </Toggle>
+        </PopoverTrigger>
+        <PopoverContent
+          side="top"
+          className="flex w-max items-center bg-input px-1.5 py-0"
+        >
+          <Toggle
+            className="rounded-none hover:bg-secondary hover:text-primary data-[state=on]:bg-secondary data-[state=on]:text-primary"
+            size="sm"
+            pressed={editor?.isActive({ textAlign: "left" })}
+            onPressedChange={() =>
+              editor?.chain().focus().setTextAlign("left").run()
+            }
+          >
+            <AlignLeft className="h-4 w-4" />
+          </Toggle>
+          <Toggle
+            className="rounded-none hover:bg-secondary hover:text-primary data-[state=on]:bg-secondary data-[state=on]:text-primary"
+            size="sm"
+            pressed={editor?.isActive({ textAlign: "center" })}
+            onPressedChange={() =>
+              editor?.chain().focus().setTextAlign("center").run()
+            }
+          >
+            <AlignCenter className="h-4 w-4" />
+          </Toggle>
+          <Toggle
+            className="rounded-none hover:bg-secondary hover:text-primary data-[state=on]:bg-secondary data-[state=on]:text-primary"
+            size="sm"
+            pressed={editor?.isActive({ textAlign: "right" })}
+            onPressedChange={() =>
+              editor?.chain().focus().setTextAlign("right").run()
+            }
+          >
+            <AlignRight className="h-4 w-4" />
+          </Toggle>
+        </PopoverContent>
+      </Popover>
+      <Toggle
+        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+        size="sm"
+        pressed={editor?.isActive("blockquote")}
+        onPressedChange={() => editor?.chain().focus().toggleBlockquote().run()}
+      >
+        <Quote className="h-4 w-4" />
+      </Toggle>
+      <Toggle
+        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+        size="sm"
+        pressed={editor?.isActive("strike")}
+        onPressedChange={() => editor?.chain().focus().toggleStrike().run()}
+      >
+        <Strikethrough className="h-4 w-4" />
+      </Toggle>
+      <Toggle
+        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+        size="sm"
+        pressed={editor?.isActive("code")}
+        onPressedChange={() => editor?.chain().focus().toggleCode().run()}
+      >
+        <Code className="h-4 w-4" />
+      </Toggle>
+      <Toggle
+        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
+        size="sm"
+        pressed={editor?.isActive("highlight")}
+        onPressedChange={() =>
+          editor?.chain().focus().toggleHighlight({ color: "#31ff6c5e" }).run()
+        }
+      >
+        <Highlighter className="h-4 w-4" />
       </Toggle>
     </div>
   )

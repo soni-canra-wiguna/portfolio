@@ -27,6 +27,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import DrawerDemo from "./drawer-demo"
 
 export default function ConfigUI() {
   return (
@@ -37,6 +38,7 @@ export default function ConfigUI() {
       <InputComp />
       <DialogComp />
       <ResizableComp />
+      <DrawerDemo />
     </MaxWidthWrapper>
   )
 }

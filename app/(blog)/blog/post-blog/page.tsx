@@ -157,7 +157,7 @@ const FormBlogPost = () => {
         </div>
         <div className="space-y-2">
           <Label>Content</Label>
-          <TextEditor />
+          <TextEditor className="max-w-full" />
         </div>
         <Button type="submit" size="lg" className="w-full">
           Submit

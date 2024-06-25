@@ -73,11 +73,6 @@
     src: local('googleSansBold'),url("../font/GoogleSans-Bold.ttf") format("opentype");
   }
 
-  h2{
-    color: hsl(220, 3%, 23%)
-  }
-
-
   .scrollY::-webkit-scrollbar {
     width: 8px;
   }
