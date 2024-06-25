@@ -43,14 +43,19 @@ import ts from "highlight.js/lib/languages/typescript"
 import html from "highlight.js/lib/languages/xml"
 import markdown from "highlight.js/lib/languages/markdown"
 import { common, createLowlight } from "lowlight"
+import { FormBlogPostProps } from '@/app/(blog)/blog/post-blog/page'
+import { formSchema } from '@/schema'
+import { useForm } from 'react-hook-form'
+import * as z from "zod"
 
 // add this theme for code block
 // <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 
 interface TextEditorProps {
-  value: string
-  setValue: (value: string) => void
+  // value: string
+  // setValue: (value: string) => void
   className?: string
+  form : ReturnType<typeof useForm<z.infer<typeof formSchema>>>
 }
 
 const lowlight = createLowlight(common)
@@ -61,14 +66,9 @@ lowlight.register("js", js)
 lowlight.register("ts", ts)
 lowlight.register("markdown", markdown)
 
-// lowlight?.common("html", html)
-// lowlight?.common("css", css)
-// lowlight?.common("js", js)
-// lowlight?.common("ts", ts)
-
-const TextEditor = ({ value, setValue, className }: TextEditorProps) => {
+const TextEditor = ({ className, form }: TextEditorProps) => {
   const editor = useEditor({
-    content: value,
+    content: form.getValues("content"),
     editorProps: {
       attributes: {
         class: cn("outline-none focus:outline-none prose"),
@@ -105,7 +105,8 @@ const TextEditor = ({ value, setValue, className }: TextEditorProps) => {
       }),
     ],
     onUpdate({ editor }) {
-      // setValue(editor.getHTML())
+      form.setValue("content", editor.getHTML())
+      // editor.getHTML()
     },
   })
 
