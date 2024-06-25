@@ -92,12 +92,18 @@ export default withUt({
       },
       typography: {
         DEFAULT: {
-          color: "var(--primary)",
+          color: "var(--white)",
           css: {
             p: {
-              color: "var(--primary)",
+              color: "var(--white)",
               margin: "0 0 10px 0",
               // fontSize: "14px",
+            },
+            a: {
+              color: "var(--primary)",
+              "&:hover": {
+                textDecoration: "underline",
+              },
             },
             ol: {
               margin: "0",

@@ -50,7 +50,7 @@ const WrapperUI = ({
 }) => {
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-title text-2xl font-medium capitalize">{title}</h1>
+      <h1 className="text-2xl font-medium capitalize text-title">{title}</h1>
       {children}
     </div>
   )
@@ -80,7 +80,7 @@ const ColorsComp = () => {
         </CustomTooltip>
         <CustomTooltip title="primary hover">
           <div
-            className={`bg-primary-hover flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-primary-hover`}
           />
         </CustomTooltip>
         <CustomTooltip title="primary foreground">
@@ -96,7 +96,7 @@ const ColorsComp = () => {
         </CustomTooltip>
         <CustomTooltip title="secondary hover">
           <div
-            className={`bg-secondary-hover flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-secondary-hover`}
           />
         </CustomTooltip>
         <CustomTooltip title="secondary foreground">
@@ -112,7 +112,7 @@ const ColorsComp = () => {
         </CustomTooltip>
         <CustomTooltip title="white hover">
           <div
-            className={`bg-white-hover flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-white-hover`}
           />
         </CustomTooltip>
         {/* card */}
@@ -123,7 +123,7 @@ const ColorsComp = () => {
         </CustomTooltip>
         <CustomTooltip title="card hover">
           <div
-            className={`bg-card-hover flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-card-hover`}
           />
         </CustomTooltip>
         <CustomTooltip title="card foreground">
@@ -139,7 +139,7 @@ const ColorsComp = () => {
         </CustomTooltip>
         <CustomTooltip title="popover hover">
           <div
-            className={`bg-popover-hover flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-popover-hover`}
           />
         </CustomTooltip>
         <CustomTooltip title="popover foreground">
@@ -183,13 +183,13 @@ const ColorsComp = () => {
         {/* title */}
         <CustomTooltip title="title">
           <div
-            className={`bg-title flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-title`}
           />
         </CustomTooltip>
         {/* paragraph */}
         <CustomTooltip title="paragraph">
           <div
-            className={`bg-paragraph flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-paragraph`}
           />
         </CustomTooltip>
         {/* border */}
@@ -200,7 +200,7 @@ const ColorsComp = () => {
         </CustomTooltip>
         <CustomTooltip title="border hover">
           <div
-            className={`bg-border-hover flex size-20 items-center justify-center rounded-2xl border border-secondary/50`}
+            className={`flex size-20 items-center justify-center rounded-2xl border border-secondary/50 bg-border-hover`}
           />
         </CustomTooltip>
 
@@ -285,7 +285,7 @@ const DialogComp = () => {
   return (
     // <WrapperUI title="dialog/modal">
     <div className="flex flex-col gap-5">
-      <h1 className="text-title text-2xl font-medium capitalize">
+      <h1 className="text-2xl font-medium capitalize text-title">
         dialog/modal
       </h1>
       <Dialog>
@@ -298,7 +298,8 @@ const DialogComp = () => {
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you&apos;re
+              done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

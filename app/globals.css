@@ -76,3 +76,30 @@
   h2{
     color: hsl(220, 3%, 23%)
   }
+
+
+  .scrollY::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollY::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  .scrollY::-webkit-scrollbar-thumb {
+    background-color: #1a1a1a;
+    border-radius: 20px;
+  }
+  
+  .scrollX::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .scrollX::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  .scrollX::-webkit-scrollbar-thumb {
+    background-color: #1a1a1a;
+    border-radius: 40px;
+  }
