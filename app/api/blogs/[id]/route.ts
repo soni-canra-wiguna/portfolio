@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma"
-import { blogSchema } from "@/schema"
+import { blogSchema, blogSchemaOptional } from "@/schema"
 import { Blog } from "@prisma/client"
 import { NextRequest, NextResponse } from "next/server"
 import * as z from "zod"
@@ -42,7 +42,7 @@ export const PATCH = async (
   try {
     const { id } = params
     const body: Blog = await req.json()
-    const parsedBody = blogSchema.parse(body)
+    const parsedBody = blogSchemaOptional.parse(body)
     const { image, title, category, content, published } = parsedBody
 
     const updateArticle = await prisma.blog.update({

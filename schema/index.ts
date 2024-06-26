@@ -15,3 +15,11 @@ export const blogSchema = z.object({
   }),
   published: z.boolean().default(true),
 })
+
+export const blogSchemaOptional = z.object({
+  image: z.string().optional(),
+  title: z.string().optional(),
+  category: z.string().optional(),
+  content: z.string().optional(),
+  published: z.boolean().default(true).optional(),
+})
