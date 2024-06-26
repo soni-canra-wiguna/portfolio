@@ -13,4 +13,5 @@ export const blogSchema = z.object({
   content: z.string().min(100, {
     message: "at least 100 character",
   }),
+  published: z.boolean().default(true),
 })

@@ -43,7 +43,7 @@ export const PATCH = async (
     const { id } = params
     const body: Blog = await req.json()
     const parsedBody = blogSchema.parse(body)
-    const { image, title, category, content } = parsedBody
+    const { image, title, category, content, published } = parsedBody
 
     const updateArticle = await prisma.blog.update({
       where: {
@@ -54,6 +54,7 @@ export const PATCH = async (
         title,
         category,
         content,
+        published,
       },
     })
 

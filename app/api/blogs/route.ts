@@ -8,7 +8,7 @@ export const POST = async (req: NextRequest) => {
   try {
     const body: Blog = await req.json()
     const parsedBody = blogSchema.parse(body)
-    const { image, title, category, content } = parsedBody
+    const { image, title, category, content, published } = parsedBody
 
     await prisma.blog.create({
       data: {
@@ -16,6 +16,7 @@ export const POST = async (req: NextRequest) => {
         title,
         category,
         content,
+        published,
       },
     })
 
