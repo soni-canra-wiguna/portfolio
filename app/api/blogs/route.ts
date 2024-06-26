@@ -52,24 +52,24 @@ export const GET = async (req: NextRequest) => {
     // get total blog
     const totalBlogArtilces = await prisma.blog.count()
 
-    const category = req.nextUrl.searchParams?.get("category")
+    const category = req.nextUrl.searchParams.get("category") ?? undefined
 
     const blogs = await prisma.blog.findMany({
       where: {
-        OR: [
-          {
-            title: {
-              contains: searchQuery,
-              mode: "insensitive",
-            },
-          },
-          {
-            category: {
-              contains: category as string,
-              mode: "insensitive",
-            },
-          },
-        ],
+        // OR: [
+        //   {
+        title: {
+          contains: searchQuery,
+          mode: "insensitive",
+        },
+        // },
+        // {
+        //   category: {
+        //     contains: category as string,
+        //     mode: "insensitive",
+        //   },
+        // },
+        // ],
       },
       orderBy: {
         createdAt: "desc",
