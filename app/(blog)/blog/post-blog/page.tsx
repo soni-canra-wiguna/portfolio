@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/select"
 import TextEditor from "@/components/text-editor"
 import parse from "html-react-parser"
-import { formSchema } from "@/schema"
+import { blogSchema } from "@/schema"
 import { Smartphone, Tablet } from "lucide-react"
 import { useState } from "react"
 import { Toggle } from "@/components/ui/toggle"
@@ -41,14 +41,14 @@ import { useRouter } from "next/navigation"
 import { blogCategory } from "@/data"
 
 export interface FormBlogPostProps {
-  form: ReturnType<typeof useForm<z.infer<typeof formSchema>>>
+  form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
 }
 
 export default function PostBlog() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof blogSchema>>({
+    resolver: zodResolver(blogSchema),
     defaultValues: {
       image: "",
       title: "",
@@ -59,7 +59,7 @@ export default function PostBlog() {
 
   // const { mutate, isPending, isError } = useMutation({
   //   mutationKey: ["article"],
-  //   mutationFn: async (data: z.infer<typeof formSchema>) => {
+  //   mutationFn: async (data: z.infer<typeof blogSchema>) => {
   //     await axios.post("/api/blogs", data, {
   //       headers: {
   //         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ export default function PostBlog() {
   //   },
   // })
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  const onSubmit = (data: z.infer<typeof blogSchema>) => {
     try {
       // mutate(data)
       console.log(data)

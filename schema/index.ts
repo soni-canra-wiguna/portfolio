@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-export const formSchema = z.object({
+export const blogSchema = z.object({
   image: z.string().min(2, {
     message: "image is require",
   }),

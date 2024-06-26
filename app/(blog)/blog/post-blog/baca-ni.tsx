@@ -31,10 +31,10 @@ import {
 } from "@/components/ui/select"
 import TextEditor from "@/components/text-editor"
 import parse from "html-react-parser"
-import { formSchema } from "@/schema"
+import { blogSchema } from "@/schema"
 
 export interface FormBlogPostProps {
-  form: ReturnType<typeof useForm<z.infer<typeof formSchema>>>
+  form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
 }
 
 export default function PostBlogWComp() {
@@ -66,8 +66,8 @@ const FormBlogPost = ({
 }: {
   getForm: (form: FormBlogPostProps) => FormBlogPostProps
 }) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof blogSchema>>({
+    resolver: zodResolver(blogSchema),
     defaultValues: {
       image: "",
       title: "",

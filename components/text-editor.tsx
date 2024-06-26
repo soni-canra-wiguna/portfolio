@@ -43,9 +43,9 @@ import ts from "highlight.js/lib/languages/typescript"
 import html from "highlight.js/lib/languages/xml"
 import markdown from "highlight.js/lib/languages/markdown"
 import { common, createLowlight } from "lowlight"
-import { FormBlogPostProps } from '@/app/(blog)/blog/post-blog/page'
-import { formSchema } from '@/schema'
-import { useForm } from 'react-hook-form'
+import { FormBlogPostProps } from "@/app/(blog)/blog/post-blog/page"
+import { blogSchema } from "@/schema"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 // add this theme for code block
@@ -55,7 +55,7 @@ interface TextEditorProps {
   // value: string
   // setValue: (value: string) => void
   className?: string
-  form : ReturnType<typeof useForm<z.infer<typeof formSchema>>>
+  form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
 }
 
 const lowlight = createLowlight(common)
