@@ -39,6 +39,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 // import axios from "axios"
 import { useRouter } from "next/navigation"
 import { blogCategory } from "@/data"
+import LoadingButton from "@/components/loading-button"
 
 export interface FormBlogPostProps {
   form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
@@ -57,37 +58,36 @@ export default function PostBlog() {
     },
   })
 
-  // const { mutate, isPending, isError } = useMutation({
-  //   mutationKey: ["article"],
-  //   mutationFn: async (data: z.infer<typeof blogSchema>) => {
-  //     await axios.post("/api/blogs", data, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //   },
-  //   onSuccess: () => {
-  //     form.reset()
-  //     toast({
-  //       title: "banner successfully created!!",
-  //       description: "new banner successfully created!!",
-  //     })
-  //     queryClient.invalidateQueries({ queryKey: ["article"] })
-  //     router.push("/dashboard/products")
-  //   },
-  //   onError: () => {
-  //     toast({
-  //       title: "something went wrong!",
-  //       description: "something went wrong, check your connection.",
-  //       variant: "destructive",
-  //     })
-  //   },
-  // })
+  const { mutate, isPending, isError } = useMutation({
+    mutationKey: ["article"],
+    mutationFn: async (data: z.infer<typeof blogSchema>) => {
+      await axios.post("/api/blogs", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    },
+    onSuccess: () => {
+      form.reset()
+      toast({
+        title: "banner successfully created!!",
+        description: "new banner successfully created!!",
+      })
+      queryClient.invalidateQueries({ queryKey: ["blogArticles"] })
+      router.push("/dashboard/products")
+    },
+    onError: () => {
+      toast({
+        title: "something went wrong!",
+        description: "something went wrong, check your connection.",
+        variant: "destructive",
+      })
+    },
+  })
 
   const onSubmit = (data: z.infer<typeof blogSchema>) => {
     try {
-      // mutate(data)
-      console.log(data)
+      mutate(data)
     } catch (error) {
       throw new Error("cannot post article, something went wrong")
     }
@@ -184,9 +184,14 @@ export default function PostBlog() {
                   <Label>Content</Label>
                   <TextEditor className="max-w-full" form={form} />
                 </div>
-                <Button type="submit" size="lg" className="w-full">
-                  Submit
-                </Button>
+                <LoadingButton
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  loading={isPending}
+                >
+                  Create Article
+                </LoadingButton>
               </form>
             </Form>
             {/* form post end */}
