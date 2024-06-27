@@ -1,6 +1,6 @@
 import { Blog } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
-import { axios } from "axios"
+import axios from "axios"
 
 export const getBlogArticles = () => {
   const { data, isPending, isError } = useQuery<Blog[]>({
