@@ -28,6 +28,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import DrawerDemo from "./drawer-demo"
+import { toast } from "@/components/ui/use-toast"
 
 export default function ConfigUI() {
   return (
@@ -39,6 +40,7 @@ export default function ConfigUI() {
       <DialogComp />
       <ResizableComp />
       <DrawerDemo />
+      <ToastComp />
     </MaxWidthWrapper>
   )
 }
@@ -348,6 +350,51 @@ const ResizableComp = () => {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
+    </WrapperUI>
+  )
+}
+
+const ToastComp = () => {
+  return (
+    <WrapperUI title="toaster">
+      <div className="flex items-center gap-4">
+        <Button
+          variant="outline"
+          onClick={() => {
+            toast({
+              title: "Scheduled: Catch up",
+              description: "Friday, February 10, 2023 at 5:57 PM",
+              variant: "default",
+            })
+          }}
+        >
+          default toaster
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            toast({
+              title: "Scheduled: Catch up",
+              description: "Friday, February 10, 2023 at 5:57 PM",
+              variant: "destructive",
+            })
+          }}
+        >
+          destructive toaster
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            toast({
+              title: "Scheduled: Catch up",
+              description: "Friday, February 10, 2023 at 5:57 PM",
+              variant: "success",
+            })
+          }}
+        >
+          success toaster
+        </Button>
+      </div>
     </WrapperUI>
   )
 }
