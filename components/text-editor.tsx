@@ -43,13 +43,9 @@ import ts from "highlight.js/lib/languages/typescript"
 import html from "highlight.js/lib/languages/xml"
 import markdown from "highlight.js/lib/languages/markdown"
 import { common, createLowlight } from "lowlight"
-import { FormBlogPostProps } from "@/app/(blog)/blog/post-blog/page"
 import { blogSchema } from "@/schema"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-
-// add this theme for code block
-// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 
 interface TextEditorProps {
   // value: string
@@ -116,7 +112,7 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
       <EditorContent
         editor={editor}
         className={cn(
-          "scrollY prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:hover:underline prose-a:hover:underline-offset-2 prose-strong:text-white prose-pre:bg-input prose-li:text-primary",
+          "scrollY prose-pre:scrollX prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-strong:text-white prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary",
           className,
         )}
         placeholder="description product"
