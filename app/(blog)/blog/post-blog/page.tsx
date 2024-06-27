@@ -1,9 +1,9 @@
 "use client"
 
+import "highlight.js/styles/github-dark.css"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,8 +18,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { UploadDropzone } from "@/lib/uploadthing"
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing"
 import { Label } from "@/components/ui/label"
 import {
   Select,
@@ -30,20 +29,15 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import TextEditor from "@/components/text-editor"
-import parse from "html-react-parser"
 import { blogSchema } from "@/schema"
-import { Smartphone, Tablet } from "lucide-react"
-import { useState } from "react"
-import { Toggle } from "@/components/ui/toggle"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-// import axios from "axios"
+import axios from "axios"
 import { useRouter } from "next/navigation"
 import { blogCategory } from "@/data"
 import LoadingButton from "@/components/loading-button"
-
-export interface FormBlogPostProps {
-  form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
-}
+import { toast } from "@/components/ui/use-toast"
+import BlogPreview from "./_components/blog-preview"
+import { Button } from "@/components/ui/button"
 
 export default function PostBlog() {
   const router = useRouter()
@@ -55,6 +49,7 @@ export default function PostBlog() {
       title: "",
       category: "",
       content: "",
+      published: true,
     },
   })
 
@@ -70,11 +65,12 @@ export default function PostBlog() {
     onSuccess: () => {
       form.reset()
       toast({
-        title: "banner successfully created!!",
-        description: "new banner successfully created!!",
+        title: "article successfully created!!",
+        description: "new article successfully created!!",
+        variant: "success",
       })
       queryClient.invalidateQueries({ queryKey: ["blogArticles"] })
-      router.push("/dashboard/products")
+      router.push("/blog")
     },
     onError: () => {
       toast({
@@ -106,25 +102,62 @@ export default function PostBlog() {
               >
                 <div className="space-y-2">
                   <Label>Image</Label>
-                  <UploadDropzone
-                    endpoint="blog"
-                    className="border-secondary/70 ut-button:bg-primary ut-button:text-background ut-allowed-content:text-paragraph ut-label:font-medium ut-label:text-primary ut-upload-icon:text-primary/30 ut-button:ut-readying:bg-primary/80 ut-uploading:!border-secondary/70"
-                    onClientUploadComplete={(res) => {
-                      if (!res) return
-                      form.setValue("image", res[0].url)
-                      // toast({
-                      //   title: "succes uploaded",
-                      //   variant: "success",
-                      // })
-                    }}
-                    onUploadError={(error: Error) => {
-                      // toast({
-                      //   title: "succes uploaded",
-                      //   description: `ERROR! ${error.message}`,
-                      //   variant: "destructive",
-                      // })
-                    }}
-                  />
+                  {form.watch("image") !== "" ? (
+                    <div className="relative h-[189px] w-full overflow-hidden rounded-lg border border-input">
+                      <img
+                        src={form.watch("image")}
+                        alt="preview image"
+                        className="size-full object-cover object-center"
+                      />
+
+                      <UploadButton
+                        endpoint="blog"
+                        className="ut-button:bg-primary ut-button:text-background ut-button:shadow-md ut-button:focus-within:ring-primary ut-allowed-content:text-paragraph"
+                        appearance={{
+                          container: "absolute bottom-2 right-6",
+                        }}
+                        onClientUploadComplete={(res) => {
+                          if (!res) return
+                          form.setValue("image", res[0].url)
+                          toast({
+                            title: "success",
+                            description: `success to update image`,
+                            variant: "success",
+                          })
+                        }}
+                        onUploadError={(error: Error) => {
+                          console.log(error)
+                          toast({
+                            title: "failed",
+                            description: `failed to update image`,
+                            variant: "destructive",
+                          })
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <UploadDropzone
+                      endpoint="blog"
+                      className="border-secondary/70 ut-button:bg-primary ut-button:text-background ut-allowed-content:text-paragraph ut-label:font-medium ut-label:text-primary ut-upload-icon:text-primary/30 ut-uploading:!border-secondary/70"
+                      onClientUploadComplete={(res) => {
+                        if (!res) return
+                        form.setValue("image", res[0].url)
+                        toast({
+                          title: "success",
+                          description: `success to upload image`,
+                          variant: "success",
+                        })
+                      }}
+                      onUploadError={(error: Error) => {
+                        console.log(error)
+                        toast({
+                          title: "failed",
+                          description: `failed to upload image`,
+                          variant: "destructive",
+                        })
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="flex w-full space-x-4">
                   <div className="w-7/12">
@@ -204,42 +237,6 @@ export default function PostBlog() {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
-    </div>
-  )
-}
-
-const BlogPreview = ({ form }: FormBlogPostProps) => {
-  const [hasResponsiveSize, setHasResposiveSize] = useState("480px")
-  // phone: 480px , tablet: 768px, laptop: 1280px
-  return (
-    <div
-      style={{ width: hasResponsiveSize }}
-      className={`scrollY mx-auto h-full overflow-y-auto border border-input p-4 transition-all duration-500`}
-    >
-      <h1 className="text-4xl font-medium text-white">{form.watch("title")}</h1>
-      <p>{form.watch("category")}</p>
-      <br />
-      <div className="prose-pre:scrollX prose prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:hover:underline prose-a:hover:underline-offset-2 prose-strong:text-white prose-pre:bg-input prose-li:text-primary">
-        {parse(form.watch("content"))}
-      </div>
-
-      {/* button responsive */}
-      <div className="absolute bottom-10 left-1/2 flex size-max -translate-x-1/2 items-center gap-2 rounded-lg bg-input p-1">
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={() => setHasResposiveSize("480px")}
-        >
-          <Smartphone className="h-4 w-4" />
-        </Button>
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={() => setHasResposiveSize("768px")}
-        >
-          <Tablet className="h-4 w-4" />
-        </Button>
-      </div>
     </div>
   )
 }

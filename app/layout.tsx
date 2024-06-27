@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import "highlight.js/styles/github-dark.css"
 import TanstackProvider from "@/lib/provider/tanstack-provider"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,6 +19,7 @@ export default function RootLayout({
       <body className="bg-background font-googleSansRegular text-white">
         <TanstackProvider>
           <main>{children}</main>
+          <Toaster />
         </TanstackProvider>
       </body>
     </html>
