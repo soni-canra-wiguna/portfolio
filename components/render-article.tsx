@@ -43,16 +43,14 @@ export default function RenderArticle({
         className="my-12 aspect-video w-full overflow-hidden rounded-2xl object-cover object-center"
         alt="title"
       />
-      <WrapperContentStyle>
-        {parse(content) || intitialData.content}
-      </WrapperContentStyle>
+      <WrapperContentStyle>{parse(content)}</WrapperContentStyle>
     </article>
   )
 }
 
 const WrapperContentStyle = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="prose prose-headings:text-white prose-p:overflow-y-auto prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-strong:text-white prose-pre:overflow-x-auto prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-img:rounded-2xl prose-hr:my-[2.5em] prose-hr:border-border prose-blockquote:border-s-input">
+    <div className="prose prose-headings:text-white prose-p:overflow-y-auto prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:overflow-x-auto prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-img:rounded-2xl prose-hr:my-[2.5em] prose-hr:border-border">
       {children}
     </div>
   )
