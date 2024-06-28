@@ -90,50 +90,13 @@ export default withUt({
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      typography: {
-        // DEFAULT: {
-        //   color: "var(--white)",
-        //   css: {
-        //     p: {
-        //       color: "var(--white)",
-        //       margin: "0 0 10px 0",
-        //       // fontSize: "14px",
-        //     },
-        //     a: {
-        //       color: "var(--primary)",
-        //       "&:hover": {
-        //         textDecoration: "underline",
-        //       },
-        //     },
-        //     ol: {
-        //       margin: "0",
-        //     },
-        //     "ol > li": {
-        //       marginTop: ".25em",
-        //       marginBottom: ".25em",
-        //     },
-        //     "ol > li > p": {
-        //       margin: "0",
-        //     },
-        //     "ol > li::marker": {
-        //       color: "var(--primary)",
-        //     },
-        //     ul: {
-        //       margin: "0",
-        //     },
-        //     "ul > li": {
-        //       marginTop: ".25em",
-        //       marginBottom: ".25em",
-        //     },
-        //     "ul > li > p": {
-        //       margin: "0",
-        //     },
-        //     "ul > li::marker": {
-        //       color: "var(--primary)",
-        //     },
-        //   },
-        // },
-      },
+      typography: (theme: any) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: "100%",
+          },
+        },
+      }),
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
