@@ -2,6 +2,7 @@ import { Blog } from "@prisma/client"
 import parse from "html-react-parser"
 import { format, parseISO } from "date-fns"
 import { Button } from "./ui/button"
+import Balancer from "react-wrap-balancer"
 
 type RenderArticleProps = Pick<
   Blog,
@@ -36,7 +37,7 @@ export default function RenderArticle({
         </div>
       </div>
       <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
-        {title || intitialData.title}
+        <Balancer>{title || intitialData.title}</Balancer>
       </h1>
       <img
         src={image || intitialData.image}
