@@ -1,39 +1,39 @@
-import { Button } from "@/components/ui/button"
 import { FormBlogPostProps } from "@/types"
 import { Monitor } from "lucide-react"
 import "highlight.js/styles/github-dark.css"
-import parse from "html-react-parser"
 import { Smartphone, Tablet } from "lucide-react"
 import { useState } from "react"
 import { Toggle } from "@/components/ui/toggle"
 import CustomTooltip from "@/components/custom-tooltip"
+import RenderArticle from "@/components/render-article"
 
 export default function BlogPreview({ form }: FormBlogPostProps) {
   const [hasResponsiveSize, setHasResponsiveSize] = useState("480px")
+
+  const title = form.watch("title")
+  const image = form.watch("image")
+  const category = form.watch("category")
+  const content = form.watch("content")
+  const published = form.watch("published")
+  const createdAt = new Date("2024-06-27T08:38:47.321Z")
 
   return (
     <div
       style={{ width: hasResponsiveSize }}
       className={`scrollY mx-auto h-full overflow-y-auto border border-input p-4 transition-all duration-500`}
     >
-      <h1 className="text-balance text-4xl font-medium text-white">
-        {form.watch("title")}
-      </h1>
-      <p>{form.watch("category")}</p>
-      <br />
-      <RenderContent>{parse(form.watch("content"))}</RenderContent>
+      <RenderArticle
+        title={title}
+        image={image}
+        category={category}
+        content={content}
+        published={published}
+        createdAt={createdAt}
+      />
       <ResponsiveToggle
         hasResponsiveSize={hasResponsiveSize}
         setHasResponsiveSize={setHasResponsiveSize}
       />
-    </div>
-  )
-}
-
-const RenderContent = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="prose prose-headings:text-white prose-p:overflow-y-auto prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-strong:text-white prose-pre:overflow-x-auto prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary">
-      {children}
     </div>
   )
 }
@@ -58,8 +58,8 @@ const ResponsiveToggle = ({
   }
 
   return (
-    <>
-      <div className="absolute bottom-8 left-1/2 flex size-max w-max -translate-x-1/2 items-center rounded-lg bg-input px-2 py-0">
+    <div className="absolute right-6 top-6 z-20 flex flex-col items-center gap-2">
+      <div className="flex size-max w-max items-center rounded-lg border border-secondary/50 bg-input px-2 py-0">
         {/* <CustomTooltip title="phone: 480px"> */}
         <Toggle
           className="rounded-none hover:bg-secondary hover:text-primary data-[state=on]:bg-secondary data-[state=on]:text-primary"
@@ -91,9 +91,9 @@ const ResponsiveToggle = ({
         </Toggle>
         {/* </CustomTooltip> */}
       </div>
-      <p className="absolute bottom-2 left-1/2 -translate-x-1/2 text-sm text-secondary">
+      <p className="text-sm text-secondary">
         width screen: <span className="text-primary">{hasResponsiveSize}</span>
       </p>
-    </>
+    </div>
   )
 }

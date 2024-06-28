@@ -6,7 +6,6 @@ import { Toggle } from "./ui/toggle"
 import {
   Bold,
   Italic,
-  LinkIcon,
   List,
   ListOrdered,
   HeadingIcon,
@@ -48,8 +47,6 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 interface TextEditorProps {
-  // value: string
-  // setValue: (value: string) => void
   className?: string
   form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
 }
@@ -102,7 +99,6 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
     ],
     onUpdate({ editor }) {
       form.setValue("content", editor.getHTML())
-      // editor.getHTML()
     },
   })
 
@@ -112,7 +108,7 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
       <EditorContent
         editor={editor}
         className={cn(
-          "scrollY prose-pre:scrollX prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-strong:text-white prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary",
+          "scrollY prose-pre:scrollX prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-hr:my-[2.5em] prose-hr:border-border",
           className,
         )}
         placeholder="description product"
