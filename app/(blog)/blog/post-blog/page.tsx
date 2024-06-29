@@ -38,6 +38,7 @@ import LoadingButton from "@/components/loading-button"
 import { toast } from "@/components/ui/use-toast"
 import BlogPreview from "./_components/blog-preview"
 import { Button } from "@/components/ui/button"
+import GuideContent from "./_components/guide-content"
 
 export default function PostBlog() {
   const router = useRouter()
@@ -214,7 +215,10 @@ export default function PostBlog() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>Content</Label>
+                  <div className="flex items-center justify-between">
+                    <Label>Content</Label>
+                    <GuideContent />
+                  </div>
                   <TextEditor className="max-w-full" form={form} />
                 </div>
                 <LoadingButton
