@@ -7,7 +7,7 @@ export const blogSchema = z.object({
   title: z.string().min(6, {
     message: "title is require",
   }),
-  category: z.string().min(4, {
+  category: z.string().min(2, {
     message: "category is required",
   }),
   content: z.string().min(100, {
