@@ -1,6 +1,7 @@
 import { Blog } from "@prisma/client"
 import parse from "html-react-parser"
 import { format, parseISO } from "date-fns"
+import { id } from "date-fns/locale"
 
 type RenderArticleProps = Pick<
   Blog,
@@ -15,9 +16,9 @@ export default function RenderArticle({
   published,
   createdAt,
 }: RenderArticleProps) {
-  // const dateCreated = createdAt.toString()
-  // const date = parseISO(dateCreated)
-  const formattedDate = format(createdAt, "EEEE, MMMM d, yyyy")
+  const formattedDate = format(createdAt, "dd MMMM yyyy, hh:mm aaa", {
+    locale: id,
+  })
 
   const intitialData = {
     title: "Grainy Texture: Tren Desain Modern",
