@@ -1,8 +1,5 @@
-"use client"
-
-import { type Editor, EditorContent, useEditor } from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
-import { Toggle } from "./ui/toggle"
+import { type Editor } from "@tiptap/react"
+import { Toggle } from "../ui/toggle"
 import {
   Bold,
   Italic,
@@ -26,131 +23,68 @@ import {
   Quote,
   Strikethrough,
   Highlighter,
+  LucideImagePlus,
+  FileImage,
 } from "lucide-react"
-import Typography from "@tiptap/extension-typography"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import Image from "@tiptap/extension-image"
-import Link from "@tiptap/extension-link"
-import { Underline as UnderlineTiptap } from "@tiptap/extension-underline"
-import { TextAlign as TextAlignTiptap } from "@tiptap/extension-text-align"
-import { cn } from "@/lib/utils"
-import Highlight from "@tiptap/extension-highlight"
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight"
-import css from "highlight.js/lib/languages/css"
-import js from "highlight.js/lib/languages/javascript"
-import ts from "highlight.js/lib/languages/typescript"
-import html from "highlight.js/lib/languages/xml"
-import markdown from "highlight.js/lib/languages/markdown"
-import { common, createLowlight } from "lowlight"
-import { blogSchema } from "@/schema"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { Button } from "../ui/button"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer"
+import { Input } from "../ui/input"
+import { Dispatch, SetStateAction, useRef, useState } from "react"
 
-interface TextEditorProps {
-  className?: string
-  form: ReturnType<typeof useForm<z.infer<typeof blogSchema>>>
+interface MenuBarProps {
+  editor: Editor | null
+  setImageURL: Dispatch<SetStateAction<string | null>>
 }
 
-const lowlight = createLowlight(common)
-
-lowlight.register("html", html)
-lowlight.register("css", css)
-lowlight.register("js", js)
-lowlight.register("ts", ts)
-lowlight.register("markdown", markdown)
-
-const TextEditor = ({ className, form }: TextEditorProps) => {
-  const editor = useEditor({
-    content: form.getValues("content"),
-    editorProps: {
-      attributes: {
-        class: cn("outline-none focus:outline-none prose"),
-      },
-    },
-    extensions: [
-      StarterKit.configure({
-        dropcursor: {
-          color: "#31ff6c",
-        },
-        heading: {
-          levels: [1, 2, 3, 4, 5, 6],
-        },
-      }),
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        // defaultProtocol: "https"
-      }),
-      Typography,
-      Image,
-      UnderlineTiptap,
-      TextAlignTiptap.configure({
-        types: ["heading", "paragraph"],
-      }),
-      Highlight.configure({
-        multicolor: true,
-        HTMLAttributes: {
-          class: "text-background",
-        },
-      }),
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
-    ],
-    onUpdate({ editor }) {
-      form.setValue("content", editor.getHTML())
-    },
-  })
-
-  return (
-    <div className="flex flex-col">
-      <MenuBar editor={editor} />
-      <EditorContent
-        editor={editor}
-        className={cn(
-          "scrollY prose-pre:scrollX prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-hr:my-[2.5em] prose-hr:border-border",
-          className,
-        )}
-        placeholder="description product"
-        spellCheck="false"
-        autoComplete="off"
-        autoCorrect="off"
-      />
-    </div>
-  )
-}
-
-export default TextEditor
-
-const MenuBar = ({ editor }: { editor: Editor | null }) => {
+export const MenuBar = ({ editor, setImageURL }: MenuBarProps) => {
   if (!editor) return null
+  const [isDrawerImage, setIsDrawerImage] = useState<boolean>(false)
+  const [isDrawerLink, setIsDrawerLink] = useState<boolean>(false)
+  const [imageUrl, setImageUrl] = useState<string>("")
+  const [link, setLink] = useState<string>(
+    editor.getAttributes("link").href || "",
+  )
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const addImage = () => {
+  const handleImageChange = (e: any) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          setImageURL(reader.result)
+        }
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleIconClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleAddImageByURL = () => {
     const url = window.prompt("URL")
 
     if (url) {
       editor?.chain().focus().setImage({ src: url }).run()
     }
+    // setIsDrawerImage(!isDrawerImage)
   }
 
-  const setLink = () => {
-    const previousUrl = editor.getAttributes("link").href
-    const url = window.prompt("URL", previousUrl)
-
-    // cancelled
-    if (url === null) {
-      return
-    }
-
-    // empty
-    if (url === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run()
-
-      return
-    }
-
-    // update link
-    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run()
+  const handleAddLink = () => {
+    editor.chain().focus().extendMarkRange("link").setLink({ href: link }).run()
+    setIsDrawerLink(!isDrawerLink)
   }
 
   return (
@@ -231,26 +165,61 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         </PopoverContent>
       </Popover>
       {/* image */}
-      <Toggle
-        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
-        size="sm"
-        pressed={editor?.isActive("image")}
-        // @ts-ignore
-        onPressedChange={addImage}
-      >
-        <ImageIcon className="h-4 w-4" />
-      </Toggle>
-      {/* link */}
-      <Toggle
-        className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
-        size="sm"
-        pressed={editor?.isActive("link")}
-        // @ts-ignore
-        onPressedChange={setLink}
-      >
-        <Link2 className="h-4 w-4" />
-      </Toggle>
-      {/*  */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <Toggle className="hover:bg-input hover:text-primary" size="sm">
+            <LucideImagePlus className="h-4 w-4" />
+          </Toggle>
+        </PopoverTrigger>
+        <PopoverContent
+          side="top"
+          className="flex w-max items-center bg-input px-1.5 py-0"
+        >
+          {/* local image */}
+          <div className="flex h-8 cursor-pointer items-center justify-center rounded-none px-2 hover:bg-secondary hover:text-primary">
+            <Input
+              type="file"
+              onChange={handleImageChange}
+              ref={fileInputRef}
+              className="hidden"
+            />
+            <FileImage className="size-4" onClick={handleIconClick} />
+          </div>
+          {/* url */}
+          <Toggle
+            className="rounded-none object-cover hover:bg-secondary hover:text-primary data-[state=on]:bg-secondary data-[state=on]:text-primary"
+            size="sm"
+            pressed={editor?.isActive("image")}
+            onPressedChange={handleAddImageByURL}
+          >
+            <ImageIcon className="h-4 w-4" />
+          </Toggle>
+        </PopoverContent>
+      </Popover>
+      {/* link start */}
+      <Drawer open={isDrawerLink} onOpenChange={setIsDrawerLink}>
+        <DrawerTrigger asChild>
+          <Toggle
+            className={`hover:bg-input hover:text-primary ${editor?.isActive("link") && "bg-input text-primary"}`}
+            size="sm"
+          >
+            <Link2 className="h-4 w-4" />
+          </Toggle>
+        </DrawerTrigger>
+        <DrawerContent>
+          <div className="mx-auto flex h-[300px] w-full max-w-lg items-center space-x-4">
+            <Input
+              placeholder="masukkan url"
+              className="border border-border"
+              onChange={(e) => setLink(e.target.value)}
+            />
+            <Button className="capitalize" onClick={handleAddLink}>
+              tambahkan
+            </Button>
+          </div>
+        </DrawerContent>
+      </Drawer>
+      {/* link end */}
       <Toggle
         className="hover:bg-input hover:text-primary data-[state=on]:bg-input data-[state=on]:text-primary"
         size="sm"
