@@ -188,8 +188,8 @@ export default function GuideContent() {
           <blockquote className="flex items-center gap-2">
             <span className="h-full w-1 bg-secondary" />
             <p>
-              "Mawar itu merah <br />
-              Violet itu biru"
+              &quot;Mawar itu merah <br />
+              Violet itu biru&quot;
             </p>
           </blockquote>
         </ContentWrapper>
