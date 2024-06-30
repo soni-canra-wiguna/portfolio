@@ -47,14 +47,13 @@ interface MenuBarProps {
 }
 
 export const MenuBar = ({ editor, setImageURL }: MenuBarProps) => {
-  if (!editor) return null
   const [isDrawerImage, setIsDrawerImage] = useState<boolean>(false)
   const [isDrawerLink, setIsDrawerLink] = useState<boolean>(false)
   const [imageUrl, setImageUrl] = useState<string>("")
-  const [link, setLink] = useState<string>(
-    editor.getAttributes("link").href || "",
-  )
+  const [link, setLink] = useState<string>("")
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  if (!editor) return null
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
