@@ -100,6 +100,11 @@ export default withUt({
               aspectRatio: "16/9",
               objectFit: "cover",
             },
+            a: {
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            },
           },
         },
       }),

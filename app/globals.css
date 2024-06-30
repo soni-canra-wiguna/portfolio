@@ -118,3 +118,29 @@
     background-color: #1a1a1a;
     border-radius: 40px;
   }
+
+  /* tiptap.js style */
+
+  .preScroll::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .preScroll::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  .preScroll::-webkit-scrollbar-thumb {
+    background-color: #333333;
+    border-radius: 40px;
+  }
+
+  .no-before::before,
+  .no-after::after {
+  content: none;
+}
+
+.custom-highlight {
+  @apply bg-primary text-background px-1 py-0.5 rounded-md;
+}
+
+/*  */

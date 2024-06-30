@@ -51,6 +51,12 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
         heading: {
           levels: [1, 2, 3, 4, 5, 6],
         },
+        code: {
+          HTMLAttributes: {
+            class:
+              "bg-input border border-secondary rounded-md text-primary px-1.5 py-1 no-before no-after font-medium",
+          },
+        },
       }),
       Link.configure({
         openOnClick: false,
@@ -69,11 +75,14 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
       Highlight.configure({
         multicolor: true,
         HTMLAttributes: {
-          class: "text-background",
+          class: "custom-highlight",
         },
       }),
       CodeBlockLowlight.configure({
         lowlight,
+        HTMLAttributes: {
+          class: "preScroll",
+        },
       }),
     ],
     onUpdate({ editor }) {
@@ -96,7 +105,7 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
       <EditorContent
         editor={editor}
         className={cn(
-          "scrollY prose-pre:scrollX prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-hr:my-[2.5em] prose-hr:border-border",
+          "scrollY prose h-[600px] max-w-full overflow-x-auto overflow-y-auto rounded-b-2xl border border-input p-2 prose-headings:text-white prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-hr:my-[2.5em] prose-hr:border-border",
           className,
         )}
         placeholder="description product"
