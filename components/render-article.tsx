@@ -2,6 +2,7 @@ import { Blog } from "@prisma/client"
 import parse from "html-react-parser"
 import { format, parseISO } from "date-fns"
 import { id } from "date-fns/locale"
+import BackButton from "./back-button"
 
 type RenderArticleProps = Pick<
   Blog,
@@ -29,6 +30,7 @@ export default function RenderArticle({
 
   return (
     <article>
+      <BackButton />
       <div className="my-4 flex items-center gap-2">
         <p className="text-paragraph">{formattedDate}</p>
         <div className="size-max rounded-full bg-secondary px-2 text-sm text-paragraph">

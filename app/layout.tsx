@@ -3,6 +3,7 @@ import "./globals.css"
 import "highlight.js/styles/github-dark.css"
 import TanstackProvider from "@/lib/provider/tanstack-provider"
 import { Toaster } from "@/components/ui/toaster"
+import NextTopLoader from "nextjs-toploader"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-background font-googleSansRegular text-white">
         <TanstackProvider>
+          <NextTopLoader color="#31ff6c" height={3} showSpinner={false} />
           <main>{children}</main>
           <Toaster />
         </TanstackProvider>
