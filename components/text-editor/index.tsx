@@ -88,7 +88,7 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
         src: imageURL,
       })
     }
-  }, [imageURL])
+  }, [imageURL, editor])
 
   return (
     <div className="flex flex-col">
