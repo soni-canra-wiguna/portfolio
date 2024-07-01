@@ -1,4 +1,5 @@
 import RenderArticle from "@/components/render-article"
+import { TracingBeam } from "@/components/tracing-beam"
 import { Blog } from "@prisma/client"
 import { Metadata } from "next"
 
@@ -74,15 +75,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = params
   const { article } = await getArticle(slug)
   return (
-    <div className="mx-auto min-h-screen w-full max-w-3xl">
-      <RenderArticle
-        title={article.title}
-        image={article.image}
-        category={article.category}
-        content={article.content}
-        published={article.published}
-        createdAt={article.createdAt}
-      />
-    </div>
+    <TracingBeam className="px-6">
+      <div className="mx-auto w-full max-w-3xl">
+        <RenderArticle
+          title={article.title}
+          image={article.image}
+          category={article.category}
+          content={article.content}
+          published={article.published}
+          createdAt={article.createdAt}
+        />
+      </div>
+    </TracingBeam>
   )
 }
