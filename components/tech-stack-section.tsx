@@ -73,9 +73,11 @@ const TechStackSection = () => {
     <div className="flex flex-wrap items-center justify-center gap-4">
       {techStackImage?.map(({ icon, title, alt }, index) => {
         return (
-          <div className="inline-flex items-center justify-center rounded-lg border border-input bg-transparent px-4 py-2 shadow-sm hover:bg-accent sm:px-6 sm:py-3">
+          <div
+            key={alt + index}
+            className="inline-flex items-center justify-center rounded-lg border border-input bg-transparent px-4 py-2 shadow-sm hover:bg-accent sm:px-6 sm:py-3"
+          >
             <Image
-              key={alt + index}
               src={icon}
               className="size-6 sm:size-8"
               alt={alt}
