@@ -128,7 +128,7 @@ const projectItems = [
       "galeri",
       "dll",
     ],
-    image: "/projects/smaman.png",
+    image: "/projects/sman.png",
   },
   {
     label: "website ujian online",

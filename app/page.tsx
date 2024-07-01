@@ -52,7 +52,7 @@ export default function Home() {
           , situs{" "}
           <LinkPreview
             url="https://sman1mandirancan.vercel.app"
-            imageSrc="/projects/smanman.png"
+            imageSrc="/projects/sman.png"
             isStatic
             className="text-primary hover:underline hover:decoration-dotted hover:underline-offset-2"
           >
