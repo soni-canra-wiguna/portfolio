@@ -1,66 +1,187 @@
-import Image from "next/image"
-import MaxWidthWrapper from "./max-width-wrapper"
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "./ui/carousel"
-import wp from "@/public/wp.jpg"
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { LinkPreview } from "./link-preview"
 
 const ProjectSection = () => {
-  const carouselItem = Array.from({ length: 5 }, (_, i) => {
-    return (
-      <CarouselItem key={i} className="pl-4 sm:basis-1/2 my-10">
-        <div className="border-2 shadow rounded-[40px] overflow-hidden aspect-square hover:shadow-xl transition-all">
-          <div className="flex flex-col w-full h-full">
-            <div className="h-8/12 w-full relative">
-              <span className="w-full h-1/2 absolute left-0 bottom-0 bg-gradient-to-t from-background/50" />
-              <Image
-                src={wp}
-                alt="image slide test"
-                className="w-full h-full grayscale hover:grayscale-0 selection:bg-transparent"
-              />
-            </div>
-            <div className="h-4/12 w-full flex flex-col p-4 selection:bg-transparent">
-              <h3 className="font-googleSansBold text-2xl capitalize mb-3">
-                bisa ujian
-              </h3>
-              <p className="text-wrap font-googleSansRegular mb-5">
-                sebuah platform untuk mempermudah siswa melakukan ujian
-              </p>
-              <p className="text-wrap font-googleSansRegular mb-2">
-                tech stack: react, next.js, prisma orm, mongodb, tailwind css,
-                tanstack query, shadcn ui
-              </p>
-              <p className="text-wrap font-googleSansRegular">
-                feature: login with RBAC, dashboard post, etc...
-              </p>
-            </div>
-          </div>
-        </div>
-      </CarouselItem>
-    )
-  })
-
   return (
-    <MaxWidthWrapper className="my-20">
-      <Carousel
-        opts={{
-          loop: true,
-          align: "center",
-        }}
-        className="relative"
-      >
-        <div className="w-20 h-full absolute bg-gradient-to-r from-background left-0 top-0 z-20" />
-        <div className="w-20 h-full absolute bg-gradient-to-l from-background right-0 top-0 z-20" />
-        <CarouselContent className="-ml-4">{carouselItem}</CarouselContent>
-        <CarouselNext className="-right-6 z-30" />
-        <CarouselPrevious className="-left-6 z-30" />
-      </Carousel>
-    </MaxWidthWrapper>
+    <Accordion type="single" collapsible className="w-full">
+      {projectItems.map((item, i) => (
+        <AccordionItem
+          key={i}
+          value={item.title.replace(/ /g, "-")}
+          className="py-6"
+        >
+          <AccordionTrigger className="text-lg font-medium capitalize hover:text-primary">
+            {item.label}
+          </AccordionTrigger>
+          <AccordionContent className="text-base">
+            <p className="mb-2">
+              <span className="text-primary">title : </span> {item.title}
+            </p>
+            <p className="mb-2">
+              <span className="text-primary">url : </span>{" "}
+              <LinkPreview
+                url={item.url}
+                imageSrc={item.image}
+                isStatic
+                className="text-primary hover:underline hover:decoration-dotted hover:underline-offset-2"
+              >
+                {item.url}
+              </LinkPreview>
+            </p>
+            <p className="mb-2">
+              <span className="text-primary">repository : </span>{" "}
+              <a
+                href={item.repository}
+                target="_blank"
+                className="text-primary hover:underline hover:decoration-dotted hover:underline-offset-2"
+              >
+                {item.repository}
+              </a>
+            </p>
+            <p className="mb-2">
+              <span className="text-primary">description : </span>{" "}
+              {item.description}
+            </p>
+            <p className="mb-2">
+              <span className="text-primary">tech stacks : </span>{" "}
+              {item.technologies.map((t) => (
+                <span key={t}>{t}, </span>
+              ))}
+            </p>
+            <p className="">
+              <span className="text-primary">features : </span>{" "}
+              {item.features.map((f) => (
+                <span key={f}>{f}, </span>
+              ))}
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
   )
 }
 
 export { ProjectSection }
+
+const projectItems = [
+  {
+    label: "website e-commerce",
+    title: "lazora",
+    url: "https://lazora.vercel.app",
+    repository: "https://github.com/soni-canra-wiguna/lazora",
+    description:
+      "sebuah aplikasi yang di gunakan untuk berjualan secara online",
+    technologies: [
+      "next.js",
+      "typescript",
+      "react hook form",
+      "tanstack query",
+      "prisma orm",
+      "mongodb",
+      "tailwind",
+      "shacn",
+      "uploadthing",
+    ],
+    features: [
+      "rest API",
+      "cart",
+      "favourite",
+      "text editor",
+      "login multi role",
+      "dashboard",
+      "infinite scroll",
+      "sort by",
+      "CRUD products",
+      "CRUD banner",
+    ],
+    image: "/projects/lazora.png",
+  },
+  {
+    label: "website sekolah",
+    title: "sman 1 mandirancan",
+    url: "https://sman1mandirancan.vercel.app",
+    repository: "private",
+    description:
+      "website yang menampilkan profil sekolah dan beberapa informasi, seperti agenda, data siswa, data guru, dll.",
+    technologies: [
+      "next.js",
+      "typescript",
+      "react hook form",
+      "tanstack query",
+      "prisma orm",
+      "mongodb",
+      "tailwind",
+      "shacn",
+      "uploadthing",
+    ],
+    features: [
+      "blog",
+      "rest API",
+      "login multi role",
+      "dashboard",
+      "CRUD data",
+      "galeri",
+      "dll",
+    ],
+    image: "/projects/smaman.png",
+  },
+  {
+    label: "website ujian online",
+    title: "bisa ujian",
+    url: "https://bisaujian.vercel.app",
+    repository: "https://github.com/soni-canra-wiguna/bisa-ujian",
+    description:
+      "sebuah aplikasi yang di gunakan untuk mempermudah siswa dalam ujian online",
+    technologies: [
+      "next.js",
+      "typescript",
+      "react hook form",
+      "tanstack query",
+      "prisma orm",
+      "mongodb",
+      "tailwind",
+      "shacn",
+    ],
+    features: [
+      "rest API",
+      "login multi role",
+      "dashboard",
+      "CRUD data",
+      "peringkat",
+      "theme",
+    ],
+    image: "/projects/bisaujian.png",
+  },
+  {
+    label: "website slicing UI",
+    title: "moi UI",
+    url: "https://moiui.netlify.app",
+    repository: "https://github.com/soni-canra-wiguna/moi-ui",
+    description:
+      "aplikasi ini aku buat sebagai sarana latihan dalam slicing ui",
+    technologies: ["react.js", "typescript", "tailwind"],
+    features: ["UI"],
+    image: "/projects/moi.png",
+  },
+  {
+    label: "website pencari film",
+    title: "box movie",
+    url: "https://box-movie.netlify.app",
+    repository: "https://github.com/soni-canra-wiguna/box-movie",
+    description:
+      "aplikasi ini di gunakan untuk mencari informasi sebuah film. aplikasi ini juga merupakan aplikasi pertama yang saya buat.",
+    technologies: ["react.js", "javascript", "tailwind", "tanstack query"],
+    features: [
+      "inifinte scroll",
+      "filter multiple category",
+      "authentication",
+      "wishlist",
+    ],
+    image: "/projects/boxmovie.png",
+  },
+]

@@ -10,11 +10,24 @@ import prismaormIcon from "@/public/prisma-orm.svg"
 import reactqueryIcon from "@/public/react-query.svg"
 import reduxIcon from "@/public/redux.svg"
 import Image from "next/image"
-import MaxWidthWrapper from "./max-width-wrapper"
-import CustomTooltip from "./custom-tooltip"
 
 const TechStackSection = () => {
   const techStackImage = [
+    {
+      icon: nextIcon,
+      title: "next.js",
+      alt: "next js icon",
+    },
+    {
+      icon: reactIcon,
+      title: "react.js",
+      alt: "react icon",
+    },
+    {
+      icon: tsIcon,
+      title: "typescript",
+      alt: "typescript icon",
+    },
     {
       icon: htmlIcon,
       title: "html",
@@ -31,19 +44,9 @@ const TechStackSection = () => {
       alt: "javascript icon",
     },
     {
-      icon: tsIcon,
-      title: "typescript",
-      alt: "typescript icon",
-    },
-    {
-      icon: reactIcon,
-      title: "react.js",
-      alt: "react icon",
-    },
-    {
-      icon: nextIcon,
-      title: "next.js",
-      alt: "next js icon",
+      icon: tailwindIcon,
+      title: "tailwind css",
+      alt: "tailwind icon",
     },
     {
       icon: mongodbIcon,
@@ -57,7 +60,7 @@ const TechStackSection = () => {
     },
     {
       icon: reactqueryIcon,
-      title: "react query/ tanstack query",
+      title: "tanstack query",
       alt: "react query icon",
     },
     {
@@ -67,25 +70,22 @@ const TechStackSection = () => {
     },
   ]
   return (
-    <MaxWidthWrapper className="flex items-center justify-center flex-wrap gap-10 mx-auto my-20">
+    <div className="flex flex-wrap items-center justify-center gap-4">
       {techStackImage?.map(({ icon, title, alt }, index) => {
         return (
-          <CustomTooltip
-            key={alt + index}
-            title={title}
-            className="bg-border text-white"
-          >
+          <div className="inline-flex items-center justify-center rounded-lg border border-input bg-transparent px-4 py-2 shadow-sm hover:bg-accent sm:px-6 sm:py-3">
             <Image
               key={alt + index}
               src={icon}
-              className="w-14 grayscale hover:grayscale-0 transition-all"
+              className="size-6 sm:size-8"
               alt={alt}
               aria-label={alt}
             />
-          </CustomTooltip>
+            <span className="ml-2 font-medium capitalize sm:ml-3">{title}</span>
+          </div>
         )
       })}
-    </MaxWidthWrapper>
+    </div>
   )
 }
 
