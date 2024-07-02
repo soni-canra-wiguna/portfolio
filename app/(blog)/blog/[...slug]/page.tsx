@@ -1,3 +1,4 @@
+import MaxWidthWrapper from "@/components/max-width-wrapper"
 import RenderArticle from "@/components/render-article"
 import { TracingBeam } from "@/components/tracing-beam"
 import { Blog } from "@prisma/client"
@@ -75,8 +76,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = params
   const { article } = await getArticle(slug)
   return (
-    <TracingBeam className="px-6">
-      <div className="mx-auto w-full max-w-3xl">
+    <TracingBeam className="lg:px-6">
+      <MaxWidthWrapper className="pb-20">
         <RenderArticle
           title={article.title}
           image={article.image}
@@ -85,7 +86,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           published={article.published}
           createdAt={article.createdAt}
         />
-      </div>
+      </MaxWidthWrapper>
     </TracingBeam>
   )
 }

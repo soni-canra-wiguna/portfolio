@@ -15,7 +15,7 @@ import { LinkPreview } from "@/components/link-preview"
 
 export default function Home() {
   return (
-    <MaxWidthWrapper className="mx-auto min-h-screen w-full max-w-3xl px-4 py-20 sm:px-6 sm:py-40 md:px-8">
+    <MaxWidthWrapper className="min-h-screen py-20 sm:py-40">
       <div className="mb-20 flex w-full flex-col items-center text-paragraph md:mb-40">
         <h1 className="mb-2 text-center text-xl font-semibold capitalize tracking-wider text-white sm:text-3xl">
           soni canra wiguna (19 tahun)

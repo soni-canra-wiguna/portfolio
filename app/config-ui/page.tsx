@@ -32,7 +32,7 @@ import { toast } from "@/components/ui/use-toast"
 
 export default function ConfigUI() {
   return (
-    <MaxWidthWrapper className="flex min-h-screen flex-col gap-10 pb-20 pt-10">
+    <MaxWidthWrapper className="max-5xl flex min-h-screen flex-col gap-10 pb-20 pt-10">
       <ColorsComp />
       <ButtonComp />
       <CardComp />
