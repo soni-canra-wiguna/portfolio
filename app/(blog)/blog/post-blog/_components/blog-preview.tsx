@@ -20,7 +20,7 @@ export default function BlogPreview({ form }: FormBlogPostProps) {
   return (
     <div
       style={{ width: hasResponsiveSize }}
-      className={`scrollY mx-auto h-full overflow-y-auto border border-input p-4 transition-all duration-500`}
+      className={`scrollY mx-auto mb-20 h-full overflow-y-auto border border-input p-4 transition-all duration-500`}
     >
       <RenderArticle
         title={title}

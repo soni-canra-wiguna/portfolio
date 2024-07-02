@@ -31,20 +31,22 @@ export default function RenderArticle({
   return (
     <article>
       <BackButton />
-      <div className="my-4 flex items-center gap-2">
+      <div className="my-4 flex items-center gap-2 text-sm md:text-base">
         <p className="text-paragraph">{formattedDate}</p>
-        <div className="size-max rounded-full bg-secondary px-2 text-sm text-paragraph">
+        <div className="rounded-full border border-secondary bg-input px-2.5 py-0.5 text-sm capitalize tracking-wide text-primary">
           {category || intitialData.category}
         </div>
       </div>
-      <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
+      <h1 className="text-2xl font-bold tracking-normal md:text-3xl md:tracking-wide">
         {title || intitialData.title}
       </h1>
-      <img
-        src={image || intitialData.image}
-        className="my-12 aspect-video w-full overflow-hidden rounded-2xl object-cover object-center"
-        alt="title"
-      />
+      <div className="my-6 aspect-[16/10] w-full overflow-hidden rounded-md sm:my-8 md:my-10 md:rounded-2xl">
+        <img
+          src={image || intitialData.image}
+          className="size-full object-cover object-center"
+          alt="title"
+        />
+      </div>
       <WrapperContentStyle>{parse(content)}</WrapperContentStyle>
     </article>
   )
@@ -52,7 +54,7 @@ export default function RenderArticle({
 
 const WrapperContentStyle = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="prose prose-headings:text-white prose-p:overflow-y-auto prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:overflow-x-auto prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-img:rounded-2xl prose-hr:my-[2.5em] prose-hr:border-border">
+    <div className="prose prose-headings:text-white prose-p:overflow-y-auto prose-p:text-white prose-a:cursor-pointer prose-a:text-primary prose-a:no-underline prose-blockquote:border-s-input prose-strong:text-white prose-pre:overflow-x-auto prose-pre:bg-input prose-li:text-primary prose-li:marker:text-primary prose-hr:my-[2.5em] prose-hr:border-border">
       {children}
     </div>
   )
