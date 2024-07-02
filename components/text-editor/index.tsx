@@ -67,6 +67,9 @@ const TextEditor = ({ className, form }: TextEditorProps) => {
       Image.configure({
         inline: true,
         allowBase64: true,
+        HTMLAttributes: {
+          class: "proseImage",
+        },
       }),
       UnderlineTiptap,
       TextAlignTiptap.configure({

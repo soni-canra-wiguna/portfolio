@@ -99,12 +99,6 @@ export default withUt({
         DEFAULT: {
           css: {
             maxWidth: "100%",
-            img: {
-              borderRadius: "1rem",
-              width: "100%",
-              aspectRatio: "16/9",
-              objectFit: "cover",
-            },
             a: {
               "&:hover": {
                 textDecoration: "underline",

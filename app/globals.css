@@ -143,4 +143,8 @@
   @apply bg-primary text-background px-1 py-0.5 rounded-md;
 }
 
+.proseImage {
+  @apply w-full object-cover rounded-md md:rounded-2xl aspect-[16/10];
+}
+
 /*  */
