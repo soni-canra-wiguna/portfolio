@@ -2,17 +2,20 @@
 
 import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Button } from "./ui/button"
 
 export default function BackButton() {
   const router = useRouter()
 
   return (
-    <div
+    <Button
       onClick={() => router.back()}
-      className="flex w-max cursor-pointer items-center gap-2 pb-4 pt-10 text-paragraph transition-all duration-300 hover:text-primary"
+      variant="outline"
+      size="sm"
+      className="mb-2 mt-6 md:mb-4 md:mt-10"
     >
-      <ArrowLeft className="size-5 text-inherit" />
-      <span className="text-xl text-inherit">back</span>
-    </div>
+      <ArrowLeft className="mr-2 size-4" />
+      <span className="">back</span>
+    </Button>
   )
 }
