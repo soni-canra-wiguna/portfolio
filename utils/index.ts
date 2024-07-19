@@ -4,3 +4,12 @@ export const formatTitleArticle = (title: string) => {
     .replace(/\s+/g, "-")
     .toLowerCase()
 }
+
+export const getBlogId = (blogRaw: string | null) => {
+  let blogId = blogRaw
+  if (blogRaw && blogRaw.includes("/")) {
+    blogId = blogRaw.split("/")[0]
+  }
+
+  return blogId
+}
