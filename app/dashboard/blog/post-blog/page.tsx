@@ -36,9 +36,8 @@ import { useRouter } from "next/navigation"
 import { blogCategory } from "@/data"
 import LoadingButton from "@/components/loading-button"
 import { toast } from "@/components/ui/use-toast"
-import BlogPreview from "./_components/blog-preview"
-import { Button } from "@/components/ui/button"
-import GuideContent from "./_components/guide-content"
+import GuideContent from "@/app/dashboard/_components/guide-content"
+import BlogPreview from "@/app/dashboard/_components/blog-preview"
 
 export default function PostBlog() {
   const router = useRouter()
