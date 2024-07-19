@@ -18,11 +18,11 @@ export const getBlogArticles = () => {
   }
 }
 
-export const getArticle = (id: string) => {
+export const getArticle = (id: string | null) => {
   const { data, isPending, isError } = useQuery<Blog>({
     queryKey: [id],
     queryFn: async () => {
-      const { data } = axios.get(`/api/blogs/${id}`)
+      const { data } = await axios.get(`/api/blogs/${id}`)
       return data.data
     },
   })
