@@ -39,10 +39,10 @@ import { toast } from "@/components/ui/use-toast"
 import GuideContent from "@/app/dashboard/blog/_components/guide-content"
 import BlogPreview from "@/app/dashboard/blog/_components/blog-preview"
 import { Loader2, Pencil } from "lucide-react"
-import { Blog } from '@prisma/client'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Blog } from "@prisma/client"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
-export default function EditArticle({article}: {article: Blog}) {
+export default function EditArticle({ article }: { article: Blog }) {
   const router = useRouter()
   const queryClient = useQueryClient()
 
@@ -99,11 +99,11 @@ export default function EditArticle({article}: {article: Blog}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      <button className="w-full flex items-center gap-2 px-3 py-2 transition-all duration-300 hover:bg-secondary hover:text-primary">
-            <Pencil className="mr-2 size-4 text-inherit" /> Edit
-          </button>
+        <button className="flex w-full items-center gap-2 px-3 py-2 transition-all duration-300 hover:bg-secondary hover:text-primary">
+          <Pencil className="size-4 text-inherit" /> Edit
+        </button>
       </DialogTrigger>
-      <DialogContent className="h-screen w-screen overflow-hidden">
+      <DialogContent className="max-w-screen h-screen w-screen overflow-hidden rounded-none bg-background p-0">
         <ResizablePanelGroup direction="horizontal" className="size-full">
           <ResizablePanel defaultSize={45}>
             <div className="scrollY mr-3 size-full overflow-y-auto p-6">
@@ -239,7 +239,7 @@ export default function EditArticle({article}: {article: Blog}) {
                     className="w-full"
                     loading={isPending}
                   >
-                    Create Article
+                    Edit Article
                   </LoadingButton>
                 </form>
               </Form>
@@ -253,7 +253,7 @@ export default function EditArticle({article}: {article: Blog}) {
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>
-    </DialogContent>
+      </DialogContent>
     </Dialog>
   )
 }

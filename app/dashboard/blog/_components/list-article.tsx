@@ -13,6 +13,7 @@ import { Blog } from "@prisma/client"
 import { Ellipsis, Pencil, Trash } from "lucide-react"
 import Link from "next/link"
 import EditArticle from "./edit-article"
+import DeleteArticle from "./delete-article"
 
 export default function ListArticle() {
   const { data, isPending, isError } = getBlogArticles()
@@ -50,11 +51,9 @@ const ArticleCard = ({ article }: { article: Blog }) => {
             <Ellipsis className="size-4" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="flex w-[150px] flex-col items-center bg-input px-0 py-1.5">
+        <PopoverContent className="flex w-[150px] flex-col items-center border bg-input px-0 py-1.5">
           <EditArticle article={article} />
-          <button className="flex items-center gap-2 px-3 py-2 transition-all duration-300 hover:bg-secondary hover:text-primary">
-            <Trash className="ml-2 size-4 text-inherit" /> delete
-          </button>
+          <DeleteArticle id={article.id} />
         </PopoverContent>
       </Popover>
     </Card>
