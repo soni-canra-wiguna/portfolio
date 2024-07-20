@@ -8,26 +8,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { getBlogArticles } from "@/services"
-import { formatTitleArticle } from "@/utils"
 import { Blog } from "@prisma/client"
-import { Ellipsis, Pencil, Trash } from "lucide-react"
-import Link from "next/link"
+import { Ellipsis, Loader2 } from "lucide-react"
 import EditArticle from "./edit-article"
 import DeleteArticle from "./delete-article"
+import { formatTitleArticle } from "@/utils"
+import Link from "next/link"
 
 export default function ListArticle() {
   const { data, isPending, isError } = getBlogArticles()
 
   return (
     <>
-      <Link
-        href={`/dashboard/blog/ultimate-guide-deploy-next-js?blogId=342869easjh4789/edit`}
-        className="text-lg font-medium text-primary"
-      >
-        link test
-      </Link>
       {isPending ? (
-        <p>loading...</p>
+        <div>
+          <Loader2 className="size-8 animate-spin text-secondary" />
+        </div>
       ) : isError ? (
         <p>something went wrong</p>
       ) : (
@@ -44,7 +40,12 @@ export default function ListArticle() {
 const ArticleCard = ({ article }: { article: Blog }) => {
   return (
     <Card className="flex justify-between gap-2 p-4">
-      <h4 className="flex-1">{article.title}</h4>
+      <Link
+        className="hover:text-primary"
+        href={`/blog/${formatTitleArticle(article.title)}/${article.id}`}
+      >
+        <h4 className="flex-1">{article.title}</h4>
+      </Link>
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="ghost" size="icon">
