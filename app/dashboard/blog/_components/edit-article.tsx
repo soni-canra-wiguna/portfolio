@@ -36,8 +36,8 @@ import { useRouter } from "next/navigation"
 import { blogCategory } from "@/data"
 import LoadingButton from "@/components/loading-button"
 import { toast } from "@/components/ui/use-toast"
-import GuideContent from "@/app/dashboard/blog/post-blog/_components/guide-content"
-import BlogPreview from "@/app/dashboard/blog/post-blog/_components/blog-preview"
+import GuideContent from "@/app/dashboard/blog/_components/guide-content"
+import BlogPreview from "@/app/dashboard/blog/_components/blog-preview"
 import { Loader2, Pencil } from "lucide-react"
 import { Blog } from '@prisma/client'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'

@@ -1,4 +1,4 @@
-import ListArticle from "@/app/dashboard/blog/post-blog/_components/list-article"
+import ListArticle from "@/app/dashboard/blog/_components/list-article"
 
 export default function DashboardBlog() {
   return (
