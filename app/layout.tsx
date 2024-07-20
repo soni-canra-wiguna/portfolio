@@ -7,8 +7,8 @@ import NextTopLoader from "nextjs-toploader"
 
 export const metadata: Metadata = {
   title: {
-    default: "Canra",
-    template: "%s | Canra",
+    default: "Soni Canra Wiguna",
+    template: "%s | Soni Canra Wiguna",
   },
   description: "portfolio soni canra wiguna",
   referrer: "origin-when-cross-origin",
@@ -54,6 +54,9 @@ export const metadata: Metadata = {
     ],
     type: "website",
     locale: "id_ID",
+  },
+  verification: {
+    google: "BxxEyZk1xS7GSZMYRRkXB2VnkAE5qDLMB1c6j6gColE",
   },
 }
 
