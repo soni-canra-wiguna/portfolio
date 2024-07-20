@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/popover"
 import { getBlogArticles } from "@/services"
 import { Blog } from "@prisma/client"
-import { Ellipsis, Loader2 } from "lucide-react"
+import { Ellipsis, Heading4, Loader2 } from "lucide-react"
 import EditArticle from "./edit-article"
 import DeleteArticle from "./delete-article"
 import { formatTitleArticle } from "@/utils"
@@ -27,7 +27,7 @@ export default function ListArticle() {
       ) : isError ? (
         <p>something went wrong</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
           {data?.map((article) => (
             <ArticleCard article={article} key={article.id} />
           ))}
@@ -41,10 +41,10 @@ const ArticleCard = ({ article }: { article: Blog }) => {
   return (
     <Card className="flex justify-between gap-2 p-4">
       <Link
-        className="hover:text-primary"
+        className="flex-1 hover:text-primary"
         href={`/blog/${formatTitleArticle(article.title)}/${article.id}`}
       >
-        <h4 className="flex-1">{article.title}</h4>
+        <h4>{article.title}</h4>
       </Link>
       <Popover>
         <PopoverTrigger asChild>
