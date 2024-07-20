@@ -38,31 +38,21 @@ import LoadingButton from "@/components/loading-button"
 import { toast } from "@/components/ui/use-toast"
 import GuideContent from "@/app/dashboard/blog/post-blog/_components/guide-content"
 import BlogPreview from "@/app/dashboard/blog/post-blog/_components/blog-preview"
-import { useSearchParams } from "next/navigation"
-import { getBlogId } from "@/utils"
-import { getArticle } from "@/services"
-import { Loader2 } from "lucide-react"
+import { Loader2, Pencil } from "lucide-react"
+import { Blog } from '@prisma/client'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 
-export default function EditArticle() {
+export default function EditArticle({article}: {article: Blog}) {
   const router = useRouter()
   const queryClient = useQueryClient()
-
-  const searchParams = useSearchParams()
-  const blogRaw = searchParams.get("blogId")
-  const blogId = getBlogId(blogRaw)
-  const {
-    data: article,
-    isPending: pendingBlog,
-    isError: errorBlog,
-  } = getArticle(blogId)
 
   const form = useForm<z.infer<typeof blogSchema>>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
-      image: article?.image,
-      title: article?.title,
-      category: article?.category,
-      content: article?.content,
+      image: article.image,
+      title: article.title,
+      category: article.category,
+      content: article.content,
       published: true,
     },
   })
@@ -74,7 +64,7 @@ export default function EditArticle() {
   } = useMutation({
     mutationKey: ["article"],
     mutationFn: async (data: z.infer<typeof blogSchema>) => {
-      await axios.patch(`/api/blogs/${blogId}`, data, {
+      await axios.patch(`/api/blogs/${article.id}`, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -86,7 +76,7 @@ export default function EditArticle() {
         title: "article successfully edited!!",
         variant: "success",
       })
-      queryClient.invalidateQueries({ queryKey: [blogId] })
+      queryClient.invalidateQueries({ queryKey: [article.id] })
       router.push("/blog")
     },
     onError: () => {
@@ -107,14 +97,13 @@ export default function EditArticle() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden">
-      {pendingBlog ? (
-        <div className="flex size-full items-center justify-center">
-          <Loader2 className="size-4 animate-spin text-secondary" />
-        </div>
-      ) : errorBlog ? (
-        <p>something went wrong...</p>
-      ) : (
+    <Dialog>
+      <DialogTrigger asChild>
+      <button className="w-full flex items-center gap-2 px-3 py-2 transition-all duration-300 hover:bg-secondary hover:text-primary">
+            <Pencil className="mr-2 size-4 text-inherit" /> Edit
+          </button>
+      </DialogTrigger>
+      <DialogContent className="h-screen w-screen overflow-hidden">
         <ResizablePanelGroup direction="horizontal" className="size-full">
           <ResizablePanel defaultSize={45}>
             <div className="scrollY mr-3 size-full overflow-y-auto p-6">
@@ -264,7 +253,7 @@ export default function EditArticle() {
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>
-      )}
-    </div>
+    </DialogContent>
+    </Dialog>
   )
 }

@@ -5,7 +5,7 @@ export const formatTitleArticle = (title: string) => {
     .toLowerCase()
 }
 
-export const getBlogId = (blogRaw: string | null) => {
+export const getBlogId = (blogRaw: string) => {
   let blogId = blogRaw
   if (blogRaw && blogRaw.includes("/")) {
     blogId = blogRaw.split("/")[0]
